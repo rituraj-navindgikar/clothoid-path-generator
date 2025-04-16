@@ -1,0 +1,37 @@
+[1.630s] Invoking command in '/home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller': PYTHONPATH=/home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/build --no-deps symlink_data
+[1.937s] /home/rituraj/.local/lib/python3.10/site-packages/setuptools/_distutils/dist.py:261: UserWarning: Unknown distribution option: 'tests_require'
+[1.937s]   warnings.warn(msg)
+[2.365s] running develop
+[2.948s] running egg_info
+[2.999s] creating path_controller.egg-info
+[3.004s] writing path_controller.egg-info/PKG-INFO
+[3.005s] writing dependency_links to path_controller.egg-info/dependency_links.txt
+[3.006s] writing requirements to path_controller.egg-info/requires.txt
+[3.006s] writing top-level names to path_controller.egg-info/top_level.txt
+[3.006s] writing manifest file 'path_controller.egg-info/SOURCES.txt'
+[3.088s] reading manifest file 'path_controller.egg-info/SOURCES.txt'
+[3.090s] writing manifest file 'path_controller.egg-info/SOURCES.txt'
+[3.206s] running build_ext
+[3.206s] Creating /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/lib/python3.10/site-packages/path-controller.egg-link (link to .)
+[3.207s] 
+[3.207s] Installed /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller
+[3.207s] running symlink_data
+[3.207s] creating /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/ament_index/resource_index/packages
+[3.208s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/resource/path_controller -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/ament_index/resource_index/packages
+[3.208s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/package.xml -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller
+[3.208s] creating /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/launch
+[3.209s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/launch/robot_spawn_launch.py -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/launch
+[3.209s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/launch/rsp_launch.py -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/launch
+[3.209s] creating /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/description
+[3.209s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/description/materials.xacro -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/description
+[3.209s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/description/gazebo_control.xacro -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/description
+[3.210s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/description/car.urdf.xacro -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/description
+[3.210s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/description/car_body.xacro -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/description
+[3.210s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/description/inertial_macros.xacro -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/description
+[3.210s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/description/car_chassis.xacro -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/description
+[3.210s] creating /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/config
+[3.210s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/config/my_controllers.yaml -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/config
+[3.211s] creating /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/worlds
+[3.211s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/worlds/mcity.world -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/worlds
+[3.211s] symbolically linking /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/worlds/empty.world -> /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/share/path_controller/worlds
+[3.275s] Invoked command in '/home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller' returned '0': PYTHONPATH=/home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/install/path_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/rituraj/Northeastern_University/MR/final_project/clothoid_path_ws/build/path_controller/build --no-deps symlink_data

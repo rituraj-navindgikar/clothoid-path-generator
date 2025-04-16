@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<sdf version='1.6'>
+  <world name='default'>
+
+    <!-- Camera & GUI -->
+    <gui fullscreen='0'>
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'/>
+      <camera name="user_camera">
+        <pose frame=''>10 0 10 0 0 0</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+
+    <!-- Lighting -->
+    <light name='sun' type='directional'>
+      <cast_shadows>0</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0 0 0 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>1</constant>
+        <linear>0</linear>
+        <quadratic>0</quadratic>
+      </attenuation>
+      <direction>-1 0 -1</direction>
+    </light>
+
+    <!-- Scene: No sky, black background -->
+    <scene>
+      <ambient>0.6 0.6 0.6 1</ambient>
+      <background>0 0 0 1</background>
+      <shadows>0</shadows>
+    </scene>
+
+    <!-- Physics -->
+    <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <gravity>0 0 -9.8</gravity>
+    <audio><device>default</device></audio>
+    <wind/>
+
+    <!-- Cloverleaf Model at Origin with Half Scale -->
+    <model name='cloverleaf_interchange'>
+      <static>1</static>
+      <pose frame=''>0 0 0 0 0 0</pose>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://cloverleaf_interchange/meshes/cloverleaf.obj</uri>
+              <scale>0.0127 0.0127 0.0127</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://cloverleaf_interchange/meshes/cloverleaf.obj</uri>
+              <scale>0.0127 0.0127 0.0127</scale>
+            </mesh>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+  </world>
+</sdf>
