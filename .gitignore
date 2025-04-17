@@ -1,5 +1,5 @@
-log
-install
-build
-__pycache__
+log/*
+install/*
+build/*
+__pycache__/*
 mid_point.pdf
