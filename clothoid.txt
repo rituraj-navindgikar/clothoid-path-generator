@@ -1,0 +1,14 @@
+The quintic splines and Bézier curves can be easily solved or
+modified with the boundary conditions or control points, which
+makes them easily integrated with the optimization methods.
+
+However, these two curves make no promise on the maximum
+curvature and the curvature change rate, which may lead to
+kinetically infeasible solutions
+
+
+The clothoid-based path can overcome the curvature issue.
+
+The clothoid is a curve whose curvature changes linearly along
+the arc length, allowing us to control each point’s curvature
+by adjusting the curve length and curvature at two boundaries
