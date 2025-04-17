@@ -141,13 +141,14 @@ def RRT(grid, start, goal, numIterations, stepSize):
         )
 
     fig = plt.figure("RRT Algorithm")
-    plt.imshow(grid, cmap='binary', origin='lower')
-    plt.plot(start[0], start[1], 'ro')
-    plt.plot(goal[0], goal[1], 'bo')
+    plt.imshow(grid, cmap='binary')
+    plt.plot(start[0], start[1], 'go', markersize=10, label="Start")
+    plt.plot(goal[0], goal[1], 'ro', markersize=10, label="Goal") 
+
     ax = fig.gca()
     ax.add_patch(goalRegion)
-    plt.xlabel('X-axis $(m)$')
-    plt.xlabel('Y-axis $(m)$')
+    plt.xlabel('X-axis $(m)$ x 10')
+    plt.xlabel('Y-axis $(m)$ x 10')
 
     # Begin
     rrt = RRTAlgorithm(start=start, goal=goal, numIterations=numIterations, grid=grid, stepSize=stepSize)
@@ -188,6 +189,8 @@ def RRT(grid, start, goal, numIterations, stepSize):
                 )
         plt.pause(0.10)
     plt.show()
+
+    print(start)
 
     return rrt.wayPoints
 

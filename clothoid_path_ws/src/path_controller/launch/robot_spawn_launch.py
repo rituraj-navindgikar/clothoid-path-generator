@@ -27,61 +27,6 @@ def generate_launch_description():
     )
     ld.add_action(rsp)
 
-    # controller_manager_node = Node(
-    #     package='controller_manager',
-    #     executable='ros2_control_node',
-    #     parameters=[yaml_file_path],
-    #     output='screen'
-    # )
-
-    # # Add a TimerAction to delay its launch
-    # ld.add_action(TimerAction(
-    #     period=2.0,
-    #     actions=[controller_manager_node]
-    # ))
-
-    # # Spawners for each controller
-    # ld.add_action(RegisterEventHandler(
-    #     OnProcessStart(
-    #         target_action=controller_manager_node,
-    #         on_start=[
-    #             TimerAction(
-    #                 period=2.0,
-    #                 actions=[
-    #                     Node(
-    #                         package='controller_manager',
-    #                         executable='spawner',
-    #                         arguments=['joint_state_broadcaster'],
-    #                         output='screen'
-    #                     ),
-    #                     Node(
-    #                         package='controller_manager',
-    #                         executable='spawner',
-    #                         arguments=['diff_cont'],
-    #                         output='screen'
-    #                     ),
-    #                     Node(
-    #                         package='controller_manager',
-    #                         executable='spawner',
-    #                         arguments=['joint_effort_controller'],
-    #                         output='screen'
-    #                     )
-    #                 ]
-    #             )
-    #         ]
-    #     )
-    # ))
-
-
-    # controller_manager = Node(
-    #     package='controller_manager',
-    #     executable='ros2_control_node',
-    #     parameters=[yaml_file_path],
-    #     output='screen'
-    # )
-    # ld.add_action(controller_manager)
-
-
     # Declare the world argument
     world_arg = DeclareLaunchArgument(
         'world', default_value='empty.world', description='World file name to load in Gazebo'
@@ -108,7 +53,7 @@ def generate_launch_description():
 
     # Declare the world argument - refer above for spawn points
     spawn_x = DeclareLaunchArgument('spawn_x', default_value="0.0", description='Spawn x coordinate in Gazebo')
-    spawn_y = DeclareLaunchArgument('spawn_y', default_value="2.0", description='Spawn y coordinate in Gazebo')
+    spawn_y = DeclareLaunchArgument('spawn_y', default_value="1.2", description='Spawn y coordinate in Gazebo')
     spawn_z = DeclareLaunchArgument('spawn_z', default_value="0.5", description='Spawn z coordinate in Gazebo')
     roll = DeclareLaunchArgument('roll', default_value="0.0", description='Roll')
     pitch = DeclareLaunchArgument('pitch', default_value="0.0", description='Pitch')
@@ -136,7 +81,18 @@ def generate_launch_description():
     )
     ld.add_action(spawn_entity)
 
-    
+
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        parameters=[{'use_sim_time': True}],
+        output='screen'
+    )
+
+    ld.add_action(rviz)
+
+
 
     # arguments
     

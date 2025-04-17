@@ -4,6 +4,11 @@ import math
 import time
 import rclpy
 
+from nav_msgs.msg import Path
+from geometry_msgs.msg import PoseStamped
+from tf2_ros import Buffer, TransformListener
+from rclpy.node import Node
+
 from clothoid_arc_turn.dual_scene import solveDualScene
 from clothoid_arc_turn.scene import Scene
 
@@ -11,6 +16,42 @@ from drive import DriveVehicle
 
 from rrt import RRT
 from helper_functions import *
+
+from scipy.interpolate import interp1d
+
+
+class TFPathLogger(Node):
+    def __init__(self):
+        super().__init__('tf_path_logger')
+
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer, self)
+        self.path_pub = self.create_publisher(Path, '/robot_path', 10)
+        self.path_msg = Path()
+        self.path_msg.header.frame_id = 'odom'
+
+    def update_from_tf(self):
+        try:
+            tf = self.tf_buffer.lookup_transform('odom', 'base_link', rclpy.time.Time())
+
+            pose = PoseStamped()
+            pose.header = tf.header
+
+            # ✅ Correctly assign each field
+            pose.pose.position.x = tf.transform.translation.x
+            pose.pose.position.y = tf.transform.translation.y
+            pose.pose.position.z = tf.transform.translation.z
+            pose.pose.orientation = tf.transform.rotation
+
+            self.path_msg.poses.append(pose)
+            if len(self.path_msg.poses) > 500:
+                self.path_msg.poses.pop(0)
+
+            self.path_msg.header.stamp = self.get_clock().now().to_msg()
+            self.path_pub.publish(self.path_msg)
+
+        except Exception as e:
+            self.get_logger().warn(f"[TFPathLogger] TF not ready: {e}")
 
 
 class MotionModel(DriveVehicle):
@@ -22,6 +63,7 @@ class MotionModel(DriveVehicle):
         self.publish_cmd_vel(linear_vel)
     
     def generate_time_aligned_commands(self, dense_paths, speed=1.0, wheelbase=2.5, steer_limit=0.4):
+        
         commands = []
         for path in dense_paths:
             for i in range(1, len(path) - 1):
@@ -34,12 +76,10 @@ class MotionModel(DriveVehicle):
                 curvature = dtheta / ds if ds != 0 else 0
                 delta = math.atan(wheelbase * curvature)
                 delta = np.clip(delta, -steer_limit, steer_limit)
-                commands.append((speed, delta))
+                commands.append((speed, -delta))
         return commands
 
     def densify_path(self, path, spacing=0.1):
-        from scipy.interpolate import interp1d
-
         # Cumulative arc-length
         points = path[:, :2]
         diffs = np.diff(points, axis=0)
@@ -103,9 +143,11 @@ class ClothoidPath:
                         scene_b = None
                         print(f"[INFO] Segment {i}: Only Scene A used.")
                     except Exception as a_e:
-                        print(f"[WARNING] Segment {i} failed: {a_e}")
-                        fallback = np.linspace(start[:2], end[:2], 50)
+                        xy = np.linspace(start[:2], end[:2], 50)
+                        theta = np.linspace(start[2], end[2], 50).reshape(-1, 1)
+                        fallback = np.hstack((xy, theta))
                         self.var["paths"].append(fallback)
+
                         self.var["scenes"].append((None, None))
                         continue
 
@@ -120,12 +162,7 @@ class ClothoidPath:
             self.var["paths"].append(full_path)
             self.var["scenes"].append((scene_a, scene_b))
 
-
-
             # except Exception as dual_e:
-                
-
-
 
     def plot(self):
         plt.figure()
@@ -141,6 +178,7 @@ class ClothoidPath:
         plt.xlabel("X")
         plt.ylabel("Y")
         plt.grid(True)
+        plt.gca().invert_yaxis()
         plt.show()
 
 
@@ -195,16 +233,25 @@ if __name__ == "__main__":
 
     rclpy.init()
     motion_model = MotionModel()
+
     # commands = motion_model.compute_steering_commands(planner.var["paths"], speed=1.2, wheelbase=2.5)
 
-    dense_paths = [motion_model.densify_path(p, spacing=0.05) for p in planner.var["paths"]]
+    dense_paths = [motion_model.densify_path(p, spacing=0.1) for p in planner.var["paths"]]
     commands = motion_model.generate_time_aligned_commands(dense_paths)
 
-    # Simulate in fixed time loop
+    x, y, theta = start[0], start[1], math.atan2(goal[1]-start[1], goal[0]-start[0])  # initial pose
+    trajectory = [[x, y]]
+    wheelbase = 2.5
+    dt = 0.01  # time step
     
+    tf_path_logger = TFPathLogger()
 
+    # Simulate in fixed time loop
     for v, steer in commands:
         motion_model.drive(v, steer)
-        time.sleep(0.05)
+        
+        tf_path_logger.update_from_tf()
+        rclpy.spin_once(tf_path_logger, timeout_sec=0.001)
+        time.sleep(dt)
     
     motion_model.drive(0.0, 0.0)
