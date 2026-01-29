@@ -7,6 +7,7 @@ Most sampling-based planners (e.g., RRT) produce **point-to-point paths** that i
 This project addresses that gap by combining **RRT-based global planning** with **clothoid-based path smoothing** to generate **kinematically feasible, curvature-continuous trajectories** suitable for real vehicles.
 
 🎥 **Demo Video:** https://www.youtube.com/watch?v=_fdF-cXDYKg
+
 🔗 **Repository:** https://github.com/rituraj-navindgikar/clothoid-path-generator/
 
 ---
@@ -163,7 +164,3 @@ The result is not just a path planner, but a **practical navigation component** 
 **Rituraj Harish Navindgikar**
 MS Robotics, Northeastern University
 LinkedIn: https://linkedin.com/in/rituraj-navindgikar
-
-```
-
-```
